@@ -6,15 +6,14 @@ let build_tree_from_node_list l =
   let rec aux l i k =
     match l, i with
     | [], _ -> Empty
-    | Empty :: t, _ -> Empty
-    | Node(v,_,_) :: t, i when i = k -> Node(v,aux t (2*i) (k+1),aux t (2*i + 1) (k+1))
+    | v :: t, i when i = k -> Node(v,aux t (2*i) (k+1),aux t (2*i + 1) (k+1))
     | _ :: t, i -> aux t i (k+1)
   in
   aux l 1 1
 
 let complete_binary_tree = function
   | [] -> Empty
-  | l -> List.map (fun v -> Node(v,Empty,Empty)) l |> build_tree_from_node_list
+  | l -> build_tree_from_node_list l
 
   let test_complete_binary_tree () =
     let l = ["a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k"] in
